@@ -8,10 +8,10 @@ These constraints apply during discovery.
 
 - **Read-only discovery and chat reporting only.** Do not create, modify or delete files.
 - **No Git operations**, commits, pull requests or hosted-object changes.
-- Load complete entry instructions:
-    - Do not execute their workflows during discovery or treat loading an entry as authorization to act.
-    - Do not install packages.
-    - Do not follow `references/*.md`.
+- Load complete `SKILL.md` and `PLUGIN.md` entry instructions.
+- Do NOT read `references/*.md` referenced from `SKILL.md`.
+- Do NOT execute their workflows during discovery or treat loading an entry as authorization to act.
+- Do NOT install packages.
 - **Report discovery in chat.** Do not create a report file, commit or formal submission for discovery.
 
 ## Discovery procedure
@@ -65,6 +65,7 @@ The report should be generated in **chat only** using the following template. Us
 - **Manifest:** {actual repository-relative manifest path}
 - **Description:** {declared description}
 - **Shared entry:** {actual PLUGIN.md path or absence}
+- **Coordintator skill:** {if defined in PLUGIN.md}
 - **Capabilities and scope:** {concise PLUGIN.md-derived summary, when available}
 
 #### Bundled skills
