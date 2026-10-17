@@ -97,6 +97,7 @@ The main documents describe the complete intended project. Roots may link to foc
 | `TASKS.md` | Phase → Milestone → Task hierarchy, stable IDs, and progress evidence. |
 | `DOCS_TASKS.md` | Predefined main preparation: initialization, seven document first approvals and final package QC. |
 | `DOCS-QC-REPORT.md` | Whole documentation package readiness, checked sources, findings and evidence limits. |
+| `HANDOFF.md` | Workflow checkpoint, authorized scope/stop, branches/parent return and pending work; later records and Git supply subsequent changes. |
 
 PROJECT.md turns the seed and clarified decisions into shared project context, with material assumptions/questions identified. Its [authoring contract](skills/sdd-design/references/project-brief.md) defines adaptable content and the boundary with design/SPEC.
 
@@ -110,7 +111,7 @@ You may **preapprove future human checkpoints at any time**, individually or as 
 
 ### Main preparation tracking
 
-The generated AGENTS.md enables GitHub tracking for documentation preparation and implementation by default. You can change this project-level policy by instructing the agent or editing AGENTS.md, including choosing local-only work.
+The generated AGENTS.md enables GitHub tracking for documentation preparation and implementation by default. When initialization will install this template, the coordinator resolves its default before the first repository write. Explicit choices and existing project policy take precedence; copying the file does not reset them. You can change this project-level policy by instructing the agent or editing AGENTS.md, including choosing local-only work.
 
 When enabled, tracking creates/verifies the native `docs-main` milestone and all nine preparation issues **before repository modifications**. Initialization preserves existing root AGENTS/disclosure/usage/discovery files and copies missing ones. If only some existed, the agent reports both groups and pauses after publishing initialization; none/all present adds no approval stop. Existing preparation resumes without replacing files or replaying first approvals.
 
@@ -121,6 +122,14 @@ When enabled, tracking creates/verifies the native `docs-main` milestone and all
 SPEC is checked against accepted PROJECT/design; PLAN/layout against SPEC; TASKS against PLAN before execution or hosted projection. Adjacent QC reports retain findings and rechecks; unresolved confirmed blockers stop dependent work. See [document quality gates](skills/sdd-manage/references/document-qc-gates.md) and [shared QC policy](skills/sdd-conventions/references/development-document-qc.md) for reports, decomposition and task-sizing guidance.
 
 PLAN begins with a meaningful end-to-end MVP and grows through small testable increments. Feature documents use FEATURE_ARCHITECTURE.md, FEATURE_DECOMPOSITION.md, FEATURE-SPEC.md, FEATURE-PLAN.md and FEATURE-TASKS.md as needed; accepted deltas are incorporated through sdd-integrate-feature. Steering directly amends existing documents.
+
+## Continue with another agent
+
+The agent follows the project's AGENTS.md to `docs/dev/HANDOFF.md`, then recovers later work and decisions from development records and Git. Handoffs are created at workflow entry and refreshed automatically by milestone/phase review tasks, revision finalization and parent return; ordinary task commits need no handoff rewrite.
+
+Each workflow branch keeps its own copy until integration into its recorded creation parent. Starting on default with unfinished branches, the agent presents candidates and asks which to continue unless you already selected one. Returning from a child restores the parent's scope and pending human checkpoint; it does not start more tasks automatically.
+
+You can request “prepare a handoff” for an additional transfer check, but it is not required for normal continuation. Publish the selected branch and make the required plugin/tools available to the receiving agent; an ordinary clone cannot supply unpublished or ignored files, credentials or unavailable capabilities. See [continuity](skills/sdd-manage/references/continuity.md) for the protocol.
 
 ## Workflow guide
 
