@@ -10,6 +10,10 @@ This project uses the SDD Manager plugin for specification-driven development. I
 
 Execute the [skill and plugin discovery protocol](SKILL_DISCOVERY_PROTOCOL.md).
 
+## Workflow continuity
+
+For continuation, read `docs/dev/HANDOFF.md` and use `sdd-manage`'s continuity subworkflow to reconstruct later work from current development records and Git. The handoff describes a checkpoint, not necessarily the branch tip. At startup, inspect unfinished workflow branches against their recorded parents and request the continuation branch unless already selected. Preserve the recovered scope, approvals and stopping boundary.
+
 ## Human checkpoints
 
 Present each necessary new development document with concise substantive analysis and pause for acceptance before dependent work. Honor the user's requested implementation range and stop when it is complete.
@@ -26,7 +30,7 @@ Use SDD Manager's integration procedure at the authorized complete boundary. For
 
 ## GitHub tracking
 
-Enable and maintain GitHub tracking for documentation preparation and implementation **by default**. The user may disable tracking, select local-only work or choose another supported backend. Preserve that choice through interruptions; do not silently change it after an access failure.
+Enable and maintain GitHub tracking for documentation preparation and implementation **by default**. The user may disable tracking, select local-only work or choose another supported backend. Resolve this project default before initialization writes when main preparation will install this template. Copying it does not reset an established choice. Preserve that choice through interruptions; do not silently change it after an access failure.
 
 When backend tracking is enabled, establish and verify the required objects before dependent repository work. Keep each task's issue associated with its actual milestone and close it only after verified completion is committed and published.
 
