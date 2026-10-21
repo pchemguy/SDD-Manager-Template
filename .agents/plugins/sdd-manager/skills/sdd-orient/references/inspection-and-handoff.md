@@ -9,6 +9,12 @@ Use this reference for read-only orientation. Collect enough evidence for the co
 - Identify contradictory or unreadable instructions and the exact affected action. Record rules for language, build, test, documentation, generated files, source ownership, and commit practices when relevant.
 - Inspect `docs/dev/PROJECT.md` as the project brief. Determine the role of its actual contents. If it contains operating instructions, report them as applicable instructions and identify their scope and any conflict; document revision is a separate workflow.
 
+## Execution OS and tool readiness
+
+Establish the OS of the host executing commands from available tool/environment evidence, separately from the user's desktop or product target. Follow applicable user/repository instructions and reuse sufficient current evidence for the same host/tools.
+
+Record relevant tool availability, attempted read-only checks and actual output/exit/errors. Return readiness failures and unresolved Git checks to sdd-manage without installing tools, changing configuration or inferring readiness. Startup observations are not product verification or authority to repair the environment.
+
 ## Git evidence
 
 Use Git's inspection commands with optional writes suppressed. Plain `git status` can refresh index metadata even when file contents are unchanged. Apply `git --no-optional-locks` to each inspection command, or scope `GIT_OPTIONAL_LOCKS=0` to the inspection process; do not change repository or global configuration. For example, from the candidate project path:
@@ -88,7 +94,7 @@ Instructions: applicable sources, scope, and conflicts
 Documents: main roots and relevant children; active feature/change documents
 Continuity: HANDOFF checkpoint/commit; later task/decision evidence; candidate branches and recorded parents; parent containment, remote uncertainty and recovered scope/stop
 Execution evidence: owning TASKS or FEATURE-TASKS; last committed task and commit; current task and status; pending changes; existing verification evidence; remaining work or ambiguity
-Tooling: relevant declared commands and environment limitations
+Tooling: actual execution OS/tools; applicable host instructions; relevant declared commands, observations and environment limitations
 Readiness: read-only possible; repository mutation eligible or blocked; reasons
 Handoff: scoped facts for the next skill; unknowns and checks to repeat
 ```

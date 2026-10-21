@@ -34,7 +34,11 @@ pause without merging. Integrate only an eligible complete boundary.
 
 Use your actual task/milestone IDs. You can enter a later stage when its inputs are established. Fresh/resumed main preparation starts with the [tracked documentation procedure](skills/sdd-manage/references/main-preparation.md) below. Other adoption follows [repository bootstrap](skills/sdd-manage/references/repository-bootstrap.md).
 
-Hosting is optional for local work. Use existing shell/API authentication; credential failures follow [credential recovery](skills/sdd-manage/references/credentials.md), using ignored protected token storage. Git and API access are separate. The [GitHub backend](skills/sdd-forge/references/github.md) defines the scoped permission profile; Actions access is conditional on requested workflow operations. Supplying credentials does not accept documents or widen the work scope.
+Hosting is optional for local work. HTTPS Git publication uses the [supervised entry](skills/sdd-manage/scripts/git-auth-recover.md) from the first attempt, selecting an eligible supplied token before inherited helpers. This publication path requires Node.js 22+, Python 3.11+ and native Git on Windows 10+ or Linux with the process facilities described in that guide. An available [GitHub CLI](skills/sdd-forge/references/github.md#github-cli) may handle supported GitHub operations with suitable existing authentication or a provided/saved token. API clients use their available authentication; credential failures follow [credential recovery](skills/sdd-manage/references/credentials.md), using ignored protected token storage. Git and API access are separate. The [GitHub backend](skills/sdd-forge/references/github.md) defines the scoped permission profile; Actions access is conditional on requested workflow operations. Supplying credentials does not accept documents or widen the work scope.
+
+For eligible completed GitHub implementation task/milestone reconciliation, the optional [completion utility](skills/sdd-forge/scripts/forge-close.md) provides bounded lookup, evidence reconciliation, closure and readback. It requires Node 22+, Git and protected local input; workflow owners retain actual acceptance/publication gates. Project build/test requirements remain defined by the target project.
+
+For selected GitHub phase or main-preparation projection, the optional [projection utility](skills/sdd-forge/scripts/forge-project.md) supports single-call docs-main operation without an intermediate JSON file, using the existing DOCS_TASKS document and origin by default; initial preparation uses the bundled task template before that document exists. Phase projection retains explicit reviewed JSON. Its [local draft/input workflow](skills/sdd-forge/scripts/forge-project-input.md) extracts phase task structure for agent-authored dependencies/briefs or produces an explicit documentation request when needed. It previews outgoing content, creates/reuses exact objects and verifies associations; the coordinator retains eligibility decisions. The same optional Node/Git requirements apply.
 
 ## Core development workflows
 
@@ -103,7 +107,7 @@ PROJECT.md turns the seed and clarified decisions into shared project context, w
 
 ### Human review
 
-Greenfield preparation walks you through PROJECT, ARCHITECTURE, DECOMPOSITION, SPEC, PLAN, layout and TASKS. Each necessary newly created document gets substantive analysis and its own human acceptance checkpoint before dependent work; PLAN and layout remain separate. Clarification answers, agent QC and standing Git authorization do not accept documents.
+Greenfield preparation walks you through PROJECT, ARCHITECTURE, DECOMPOSITION, SPEC, PLAN, layout and TASKS. Each necessary newly created document gets substantive analysis and its own human acceptance checkpoint before dependent work. Clarification answers, agent QC and standing Git authorization do not accept documents.
 
 Existing or interrupted preparation assesses actual progress and continues using acceptable inputs. Requested interactive reviews come first; important startup issues can prompt concerns. Feature preparation reviews only necessary deltas and reuses sufficient main inputs. See [human document review](skills/sdd-manage/references/human-document-review.md).
 
@@ -113,7 +117,7 @@ You may **preapprove future human checkpoints at any time**, individually or as 
 
 The generated AGENTS.md enables GitHub tracking for documentation preparation and implementation by default. When initialization will install this template, the coordinator resolves its default before the first repository write. Explicit choices and existing project policy take precedence; copying the file does not reset them. You can change this project-level policy by instructing the agent or editing AGENTS.md, including choosing local-only work.
 
-When enabled, tracking creates/verifies the native `docs-main` milestone and all nine preparation issues **before repository modifications**. Initialization preserves existing root AGENTS/disclosure/usage/discovery files and copies missing ones. If only some existed, the agent reports both groups and pauses after publishing initialization; none/all present adds no approval stop. Existing preparation resumes without replacing files or replaying first approvals.
+When enabled, tracking creates/verifies the native `sdd-docs-main` milestone and all nine preparation issues **before repository modifications**. The [bundled JSON](assets/DOCS_TRACKING_TEMPLATE.json) fixes the milestone title/plain-text description and complete issue briefs/dependencies. Initialization preserves existing root AGENTS/disclosure/usage/discovery files and copies missing ones. If only some existed, the agent reports both groups and pauses after publishing initialization; none/all present adds no approval stop. Existing preparation resumes without replacing files or replaying first approvals.
 
 `docs/dev/DOCS_TASKS.md` comes from the bundled template. Each document task completes at first approval: its approved state and checked task share one commit, followed by push/readback and issue closure. Later document revisions keep that task complete and issue closed. The last task/issue checks the whole package; then the docs branch merges, the verified merge is published, the milestone closes and the agent confirms the final checkpoint before implementation. See [main preparation](skills/sdd-manage/references/main-preparation.md).
 
@@ -137,11 +141,11 @@ These diagrams explain the human-visible paths. [PLUGIN.md](PLUGIN.md#composite-
 
 ### Project preparation
 
-Each authoring node below creates/checks and publishes one necessary proposal before human review (or follows explicit preapproval). First approval is then recorded with the completed DOCS task in its published acceptance commit, followed by issue closure when enabled. Design repeats this checkpoint for PROJECT, ARCHITECTURE and DECOMPOSITION; PLAN and layout have separate checkpoints. Dependent implementation starts only after accepted preparation is integrated, verified and published to the actual default branch.
+Each authoring node below creates/checks and publishes one necessary proposal before human review (or follows explicit preapproval). First approval is then recorded with the completed DOCS task in its published acceptance commit, followed by issue closure when enabled. Design repeats this checkpoint for PROJECT, ARCHITECTURE and DECOMPOSITION. Dependent implementation starts only after accepted preparation is integrated, verified and published to the actual default branch.
 
 ```mermaid
 flowchart TB
-    M["Scope and repository state"] --> H["Enabled docs-main projection before writes"]
+    M["Scope and repository state"] --> H["Enabled sdd-docs-main projection before writes"]
     H --> I["DOCS-001: initialize; publish and close issue"]
     I --> IQ{"Partial initial files and no preapproval?"}
     IQ -->|"yes"| STOP["Report retained/copied files; pause"]
@@ -163,7 +167,7 @@ flowchart TB
     TQ -->|"revise"| T
     TQ -->|"accepted"| Q["DOCS-009: package QC; publish and close final issue"]
     Q --> G["Explicit docs merge; verify and publish default branch"]
-    G --> MC["Close docs-main milestone when enabled"]
+    G --> MC["Close sdd-docs-main milestone when enabled"]
     MC --> A{"Final checkpoint cleared and implementation range authorized?"}
     A -->|"no"| R["Report preparation result; stop"]
     A -->|"yes"| B["Activate eligible phase and branch from published checkpoint"]
@@ -260,7 +264,7 @@ See [packaging](skills/sdd-forge/references/github-packaging.md), [release workf
 
 ## Plugin package
 
-The Agent Plugins 1.0 package includes package-root plugin.json, README.md, PLUGIN.md and LICENSE, plus skills/ and assets/. Assets include disclosure/usage notices, [AGENTS_TEMPLATE.md](assets/AGENTS_TEMPLATE.md), [DOCS_TASKS_TEMPLATE.md](assets/DOCS_TASKS_TEMPLATE.md), [SKILL_DISCOVERY_PROTOCOL.md](assets/SKILL_DISCOVERY_PROTOCOL.md) and the [Greenfield Project Prompt Template](<assets/Greenfield Project Prompt Template.md>). Root plugin.json is the sole manifest; OpenAI presentation metadata is under extensions.com.openai.interface. PLUGIN.md is SDD Manager's explicit composition entry, not a claim of standardized automatic discovery.
+The Agent Plugins 1.0 package includes package-root plugin.json, README.md, PLUGIN.md and LICENSE, plus skills/ and assets/. Assets include disclosure/usage notices, [AGENTS_TEMPLATE.md](assets/AGENTS_TEMPLATE.md), [DOCS_TASKS_TEMPLATE.md](assets/DOCS_TASKS_TEMPLATE.md), [DOCS_TRACKING_TEMPLATE.json](assets/DOCS_TRACKING_TEMPLATE.json), [SKILL_DISCOVERY_PROTOCOL.md](assets/SKILL_DISCOVERY_PROTOCOL.md) and the [Greenfield Project Prompt Template](<assets/Greenfield Project Prompt Template.md>). Root plugin.json is the sole manifest; OpenAI presentation metadata is under extensions.com.openai.interface. PLUGIN.md is SDD Manager's explicit composition entry, not a claim of standardized automatic discovery.
 
 All 15 skills are distributed together. Their relative references stay within the plugin root; named handoffs and client loading/routing are separate concerns. See [bundled-skill guidance](https://github.com/pchemguy/SDD-Manager/blob/main/docs/dev/CAPABILITY-MAP.md#bundled-skill-references). Artwork includes assets/icon.svg, icon.png, logo.svg and logo.png; manifest icons use icon.svg and logo.svg, including dark variants.
 
