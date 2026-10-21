@@ -13,6 +13,8 @@ Read an available `PLUGIN.md` explicitly when the client has not loaded it and e
 
 ## Establish the request and context
 
+Identify the actual execution host and available tools at startup, following applicable user and repository instructions. Orientation observes read-only.
+
 For a new development, functionality, review or revision request without sufficient workflow context, use `sdd-manage` to establish project state and select the path. Use [sdd-orient](skills/sdd-orient/SKILL.md) when current repository evidence is insufficient. Select by purpose; new, existing or interrupted state determines the eligible stage, not the workflow by itself.
 
 | Core workflow | Purpose |
@@ -37,7 +39,7 @@ Preserve narrow direct/standalone requests, pending decisions and unfinished wor
 
 **Push every workflow-owned commit and verify remote containment before further work or another commit.** This includes completed documents, tasks, review reports, revision actions and merges. A failed push blocks progression. A retained implementation task completion with known failure or uncertain eligibility first follows [publication preflight](skills/sdd-implement/references/startup-and-continuation.md#push-before-task-work); only bounded authorized recovery/corrective persistence may precede its safe publication. Follow [per-commit publication](skills/sdd-manage/references/git-workflows.md#publish-each-commit); preserve explicit human-directed local-only or deferred-publication exceptions.
 
-**For each necessary new document, publish the reviewable state, present substantive results and pause for human acceptance before dependent work unless explicit applicable preapproval covers that checkpoint.** The same checkpoints apply to necessary feature documents/proposals. PLAN and layout require separate decisions; reuse sufficient existing inputs rather than creating optional documents to fill the sequence.
+**For each necessary new document, publish the reviewable state, present substantive results and pause for human acceptance before dependent work unless explicit applicable preapproval covers that checkpoint.** The same checkpoints apply to necessary feature documents/proposals. Reuse sufficient existing inputs rather than creating optional documents to fill the sequence.
 
 | Human checkpoint | Hold before |
 | --- | --- |
@@ -60,7 +62,7 @@ Clarification, agent QC, passing tests and commits/pushes do not constitute huma
 
 ## Requested backend tracking
 
-**For fresh/resumed main preparation, enabled tracking precedes repository modifications:** use [main preparation](skills/sdd-manage/references/main-preparation.md) for the native `docs-main` milestone and all nine template issues before writes. DOCS_TASKS tracks initialization, seven documents through first approval and final package QC. Publish each approved-document/checked-task commit before issue closure; later document revisions leave those tasks/issues complete. Final QC issue closure → verified/published docs merge → milestone closure → final preimplementation checkpoint. This is separate from implementation phase activation.
+**For fresh/resumed main preparation, enabled tracking precedes repository modifications:** use [main preparation](skills/sdd-manage/references/main-preparation.md) for the native `sdd-docs-main` milestone and all nine issues defined in bundled JSON before writes. DOCS_TASKS tracks initialization, seven documents through first approval and final package QC. Publish each approved-document/checked-task commit before issue closure; later document revisions leave those tasks/issues complete. Final QC issue closure → verified/published docs merge → milestone closure → final preimplementation checkpoint. This is separate from implementation phase activation.
 
 ### Implementation tracking
 
@@ -109,7 +111,7 @@ The [canonical catalog](skills/sdd-manage/references/workflows.md) owns definiti
 
 Main preparation routes `sdd-manage`/`sdd-orient` → `sdd-design` (PROJECT, ARCHITECTURE, DECOMPOSITION) → `sdd-specify` (SPEC) → `sdd-plan` (PLAN, layout) → `sdd-tasks` (TASKS), with `sdd-conventions` as needed. Existing work enters at the next eligible stage; requested interactive review comes first. Apply the [human checkpoints](#human-checkpoints-and-git-publication) and [document QC](skills/sdd-manage/references/document-qc-gates.md).
 
-Completed main preparation includes DOCS-009 whole-package QC and published documentation integration, then `docs-main` milestone closure and the final implementation checkpoint. Preparation-only stops there; an authorized implementation handoff requires accepted preparation to be integrated, verified and published to the actual default branch before creating the dependent branch; see [preparation integration](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
+Completed main preparation includes DOCS-009 whole-package QC and published documentation integration, then `sdd-docs-main` milestone closure and the final implementation checkpoint. Preparation-only stops there; an authorized implementation handoff requires accepted preparation to be integrated, verified and published to the actual default branch before creating the dependent branch; see [preparation integration](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
 
 ### Task implementation and continuation
 

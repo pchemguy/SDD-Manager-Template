@@ -169,7 +169,7 @@ When a commanded amendment is blocked by an unavailable check, report its branch
 
 ## Human document review examples
 
-- “Prepare the whole greenfield project through TASKS”: create/QC/persist PROJECT, present substantive analysis and pause. Acceptance permits the authorized ARCHITECTURE step; repeat at each necessary root, with SPEC before PLAN and separate PLAN/layout checkpoints.
+- “Prepare the whole greenfield project through TASKS”: create/QC/persist PROJECT, present substantive analysis and pause. Acceptance permits the authorized ARCHITECTURE step; repeat at each necessary root in dependency order.
 - “Continue preparation; PROJECT through SPEC already exist”: orient and assess actual progress, reuse acceptable inputs, then create PLAN and pause at its new-document review. Do not replay existing documents unless requested or actually pending.
 - “Review the existing architecture with me, then continue”: begin with concise structural analysis and resolve that selected interactive review before dependent work.
 - Startup finds contradictory feature contracts: explain the concern and offer interactive review; an unselected offer is not interactive mode, and declining cannot clear the contract blocker.
@@ -190,9 +190,9 @@ Use [revision modes](revision-modes.md) for the controlling eligibility, authori
 
 | Request / observed state | Required boundary |
 | --- | --- |
-| Fresh main preparation with requested GitHub tracking | Verify native docs-main and all nine template issues before target writes; then create/reuse docs branch, copy the task template and perform DOCS-001. No product PLAN/TASKS prerequisite or implementation phase objects. |
+| Fresh main preparation with requested GitHub tracking | Verify native sdd-docs-main and all nine template issues before target writes; then create/reuse docs branch, copy the task template and perform DOCS-001. No product PLAN/TASKS prerequisite or implementation phase objects. |
 | Two of the four root setup files existed | Preserve them, copy the missing files, publish initialization with DOCS-001 complete, close/read back its issue, warn with both file groups and stop unless that continuation was explicitly preapproved. |
 | SPEC is approved after its proposal was published | Commit the approved SPEC state, approval evidence and checked DOCS-005 together; push/read back, then close its issue before PLAN. No rewrite of unchanged SPEC bytes. |
 | Later SPEC correction or resumed incomplete preparation | Retain first-approval task/issue completion; reassess current readiness and continue the earliest unmet operation without duplicate objects or guessed approvals. |
-| Main preparation through TASKS is complete | Pass whole-package DOCS-009 QC, publish its report/checked task, close final issue, explicitly merge/verify/publish docs, close/read back docs-main, then confirm final checkpoint. Implementation still needs its authorized range. |
+| Main preparation through TASKS is complete | Pass whole-package DOCS-009 QC, publish its report/checked task, close final issue, explicitly merge/verify/publish docs, close/read back sdd-docs-main, then confirm final checkpoint. Implementation still needs its authorized range. |
 | Explicit preapproval covers remaining document and final checkpoints | Retain its actual scope; report/check/persist each result without repeated acceptance pauses. Technical, tracking and publication gates remain required; do not guess an implementation range. |

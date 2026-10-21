@@ -9,7 +9,7 @@ For Markdown output or document work within this skill's scope, apply the shared
 
 ## Shared protocol
 
-- **Main preparation:** Before enabled main documentation repository writes, use [GitHub main preparation](references/github-docs-preparation.md), after its parent backend prerequisites, for `docs-main` and nine template-derived issues. DOCS_TASKS tracks first approval; final milestone closure follows verified published documentation integration. Product PLAN/TASKS and implementation-phase activation are not prerequisites for this separate preparation operation.
+- **Main preparation:** Before enabled main documentation repository writes, use [GitHub main preparation](references/github-docs-preparation.md), after its parent backend prerequisites, for `sdd-docs-main` and nine issues from the bundled JSON definitions. DOCS_TASKS tracks first approval; final milestone closure follows verified published documentation integration. Product PLAN/TASKS and implementation-phase activation are not prerequisites for this separate preparation operation.
 - **Scope:** Run only for a requested hosted operation or release/package preparation, including local Git release highlights. Route shared highlights before provider selection; identify the provider before loading a hosted backend; report ambiguous remotes or unsupported providers without guessing. Local preparation/inspection and workflows without selected tracking need no hosted activation; requested/confirmed tracking retains the manager's phase execution gates.
 - **Hierarchy:** For implementation task tracking, use the **sdd-conventions** task hierarchy to read phase, milestone, and task IDs and names from TASKS or the active FEATURE-TASKS and preserve their parentage in the host projection. The selected backend defines its concrete objects.
 - **Coordination:** Before a local draft edit or hosted mutation, **sdd-manage** coordinates the user's request and a current **sdd-orient** handoff establishing the eligible Git worktree and governing instructions. Read-only inspection needs no Git mutation gate.
@@ -32,9 +32,15 @@ For “collect key changes since the latest release,” highlights-only preparat
 
 ## Available backends
 
-- **GitHub:** Read [GitHub backend](references/github.md) when the requested operation targets a GitHub repository. It resolves repository identity and access, then routes tracking, package/workflow preparation and release lifecycle operations. Apply the shared backend object lifecycle for tracking; standalone release requests need no task hierarchy or tracking activation. Package preparation does not implicitly publish a release.
+- **GitHub:** Read [GitHub backend](references/github.md) when the requested operation targets a GitHub repository. It resolves repository identity and access, then routes tracking, package/workflow preparation and release lifecycle operations. An available [GitHub CLI](references/github.md#github-cli) may perform supported operations with suitable existing or provided/saved-token authentication. Apply the shared backend object lifecycle for tracking; standalone release requests need no task hierarchy or tracking activation. Package preparation does not implicitly publish a release.
 
 For hosted operations, carry the confirmed request scope, destination/object identity and explicit limits through the [coordination handoff](../sdd-manage/references/coordination.md#coordinate-execution). Keep credentials protected and optional tracking activation separate from access capability.
+
+## Optional local tracking utilities
+
+For canonical-list input authoring and eligible phase or main-preparation projection with local Node 22+ and Git, select the [input-authoring workflow](scripts/forge-project-input.md) and [projection utility](scripts/forge-project.md). Phase drafting extracts structure for agent-authored dependencies/briefs and retains an explicit reviewed request. For routine `docs-main`, prefer the single-call projection entry with repository DOCS_TASKS and origin defaults; its guide defines bootstrap template fallback, explicit overrides and the required apply eligibility confirmation. The agent reviews outgoing content and the coordinator establishes actual eligibility. Preparation drafting before its pre-write gate keeps files outside the target repository. Exact conflicts/unsupported scopes retain the existing backend procedures.
+
+For eligible completed implementation task/milestone reconciliation with local Node 22+, Git and an eligible ignored repository token, the backend can select [forge-close.mjs](scripts/forge-close.mjs) under its [CLI and handoff contract](scripts/forge-close.md). Load the backend and selected lifecycle first; the utility performs bounded mechanics, while execution/coordination establishes actual acceptance/publication and exclusive ownership. Consume known/unknown effects and use reconcile-only for uncertain prior writes. Other clients and unsupported scopes retain their existing backend procedures.
 
 ## Supporting modules
 
