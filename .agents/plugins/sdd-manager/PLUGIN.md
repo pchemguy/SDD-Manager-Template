@@ -41,6 +41,8 @@ Preserve narrow direct/standalone requests, pending decisions and unfinished wor
 
 **For each necessary new document, publish the reviewable state, present substantive results and pause for human acceptance before dependent work unless explicit applicable preapproval covers that checkpoint.** The same checkpoints apply to necessary feature documents/proposals. Reuse sufficient existing inputs rather than creating optional documents to fill the sequence.
 
+For main document preparation, select or recover the [doc-design mode](#doc-design-modes) before applying the document checkpoints below. The selected mode determines which approvals remain active and where its preparation pass stops.
+
 | Human checkpoint | Hold before |
 | --- | --- |
 | PROJECT | ARCHITECTURE or other dependent use of the brief |
@@ -62,7 +64,7 @@ Clarification, agent QC, passing tests and commits/pushes do not constitute huma
 
 ## Requested backend tracking
 
-**For fresh/resumed main preparation, enabled tracking precedes repository modifications:** use [main preparation](skills/sdd-manage/references/main-preparation.md) for the native `sdd-docs-main` milestone and all nine issues defined in bundled JSON before writes. DOCS_TASKS tracks initialization, seven documents through first approval and final package QC. Publish each approved-document/checked-task commit before issue closure; later document revisions leave those tasks/issues complete. Final QC issue closure → verified/published docs merge → milestone closure → final preimplementation checkpoint. This is separate from implementation phase activation.
+**For fresh/resumed main preparation, enabled tracking precedes repository modifications:** use [main preparation](skills/sdd-manage/references/main-preparation.md) for the native `sdd-docs-main` milestone and all nine issues defined in bundled JSON before writes. DOCS_TASKS tracks initialization, seven documents through first approval and final package QC. Publish each approved-document/checked-task commit before issue closure; ordinary later edits retain completion, while an explicit cursor reset reopens DOCS-002–009 for a new pass. Final QC issue closure → verified/published docs merge → milestone closure → final preimplementation checkpoint. This is separate from implementation phase activation.
 
 ### Implementation tracking
 
@@ -103,6 +105,19 @@ Name the next owner and preserve accepted inputs, actual context and the stoppin
 
 The [canonical catalog](skills/sdd-manage/references/workflows.md) owns definitions and transitions. These summaries show principal stages, owners, outputs and stops; implementation and release operations can also be selected independently within scope.
 
+### Doc-design modes
+
+Main document preparation supports the following selections. Load [mode and pass control](skills/sdd-manage/references/doc-design-modes.md) before applying a selection or handling a cursor reset; it owns approval/delegation, retained-document revision, reset and recovery rules.
+
+| Selection | Approval and pass boundary |
+| --- | --- |
+| **interactive/onepass** (default) | Each necessary document checkpoint remains active unless explicitly preapproved; follow the selected preparation range. |
+| **autodoc/onepass** | Approve PROJECT; later document checkpoints through TASKS are preapproved. Stop after DOCS-008, before package QC. |
+| **autodoc with human-controlled multipass** | Approve PROJECT each pass; later document checkpoints are preapproved. After TASKS, wait for reset or advance direction. |
+| **autodoc/autoloop** | Use predefined scope passes: first PROJECT approval remains active; announce that later PROJECT approvals are waived. Run the agreed passes, then stop after final DOCS-008, before package QC. |
+
+Predefined autodoc scope sequences default to autoloop unless human-controlled multipass is requested. New material autoloop decisions are delegated to agent judgment with visible rationale while proceeding. A cursor reset retains documents and reopens DOCS-002–009 and their existing issues; mode selection preserves required QC, publication and tracking gates.
+
 ### Project preparation and bounded delivery
 
 `PROJECT.md` is the concise project brief: purpose, users, outcomes, scope/non-goals and consequential constraints, with material assumptions/questions identified. Use `sdd-design`'s [brief contract](skills/sdd-design/references/project-brief.md); PROJECT supplies context rather than architecture or exact SPEC behavior.
@@ -111,7 +126,7 @@ The [canonical catalog](skills/sdd-manage/references/workflows.md) owns definiti
 
 Main preparation routes `sdd-manage`/`sdd-orient` → `sdd-design` (PROJECT, ARCHITECTURE, DECOMPOSITION) → `sdd-specify` (SPEC) → `sdd-plan` (PLAN, layout) → `sdd-tasks` (TASKS), with `sdd-conventions` as needed. Existing work enters at the next eligible stage; requested interactive review comes first. Apply the [human checkpoints](#human-checkpoints-and-git-publication) and [document QC](skills/sdd-manage/references/document-qc-gates.md).
 
-Completed main preparation includes DOCS-009 whole-package QC and published documentation integration, then `sdd-docs-main` milestone closure and the final implementation checkpoint. Preparation-only stops there; an authorized implementation handoff requires accepted preparation to be integrated, verified and published to the actual default branch before creating the dependent branch; see [preparation integration](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
+Completed main preparation includes DOCS-009 whole-package QC and published documentation integration, then `sdd-docs-main` milestone closure and the final implementation checkpoint. Autodoc stops earlier at DOCS-008; advancing to package QC is separate. Otherwise completed preparation-only stops at that final checkpoint; an authorized implementation handoff requires accepted preparation to be integrated, verified and published to the actual default branch before creating the dependent branch; see [preparation integration](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
 
 ### Task implementation and continuation
 
@@ -137,9 +152,9 @@ At a paused implementation checkpoint, `sdd-manage` routes the human-defined ame
 
 ### Release preparation and publication
 
-`sdd-manage` routes [highlights-only](skills/sdd-forge/references/release-highlights.md) versus [complete messages](skills/sdd-forge/references/release-message.md) through `sdd-forge` and `sdd-report`. Complete preparation refreshes retained root RELEASE-NOTES.md, preserving applicable human curation and explicit template/path or supplied-text scope. Complete required Git persistence of owned ignore/tracked-note changes; stop before tagging or hosted release publication.
+`sdd-manage` routes [highlights-only](skills/sdd-forge/references/release-highlights.md) versus [complete messages](skills/sdd-forge/references/release-message.md) through `sdd-forge` and `sdd-report`. Complete preparation refreshes retained notes, preserving human curation and explicit template/path or supplied-text scope. Root RELEASE-NOTES.md is the default final destination; release documents may be committed within the active revision directory and moved in the release commit. Complete required Git persistence of owned ignore/tracked-note changes; stop before tagging or hosted release publication.
 
-An authorized release verifies notes coverage/context and version; version match alone is insufficient. The release commit body and GitHub body use the exact finalized Markdown, and the tag targets that verified commit. Follow [release Git boundaries](skills/sdd-manage/references/git-workflows.md#release-commit-and-tag) and the [GitHub release owner](skills/sdd-forge/references/github.md). `sdd-verify` checks actual release evidence; reports distinguish prepared, Git-published and hosted-complete states. Package preparation alone does not authorize a release; prerelease review requires explicit selection.
+An authorized release verifies notes coverage/context and version; version match alone is insufficient. The tag targets a verified release commit on the actual default branch: either a direct commit or the merge from its designated primary development branch. Its body and GitHub body use the exact finalized Markdown. Follow [release Git boundaries](skills/sdd-manage/references/git-workflows.md#release-commit-and-tag) and the [GitHub release owner](skills/sdd-forge/references/github.md). `sdd-verify` checks actual release evidence; reports distinguish prepared, Git-published and hosted-complete states. Package preparation alone does not authorize a release; prerelease review requires explicit selection.
 
 ### Focused maintenance and optional hosting
 

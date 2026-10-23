@@ -12,7 +12,7 @@ Development uses [SDD Manager](assets/SDD-MANAGER.md). See the [AI-assisted deve
 
 ## Getting started
 
-Load the package using your agent client's supported plugin mechanism. Project changes require an existing eligible Git worktree, access to its files and tools, and respect for its controlling instructions. Repository initialization is outside the plugin's scope. Checks use the target project's declared tools.
+Load the package using your agent client's supported plugin mechanism. Project changes require an existing eligible Git worktree, access to its files and tools, and respect for its controlling instructions. Creating a Git repository is outside the plugin's scope. Checks use the target project's declared tools.
 
 For a new project, copy the [Greenfield Project Prompt Template](<assets/Greenfield Project Prompt Template.md>) and replace its project, repository and token placeholders. The [Tetris demo](https://github.com/pchemguy/SDD-Manager/blob/main/docs/demo/tetris/README.md) illustrates phased delivery and feature expansion; the [Calculator demo](https://github.com/pchemguy/SDD-Manager/blob/main/docs/demo/calculator/README.md) proposes a simpler phase/feature sequence.
 
@@ -66,7 +66,7 @@ The [canonical workflow model](skills/sdd-manage/references/workflows.md#core-de
 | Review and revise a project | “Plan a systematic review,” “Review this protocol,” or “Implement accepted findings.” | Retained campaign plans/reports, stable findings, and authorized verified revisions incorporated into governing documents. |
 | Review or maintain a scope | “Review PLAN,” “Verify this phase,” or “Align README.” | Findings, evidence, or the explicitly requested maintenance. |
 | Review a release candidate | “Run a comprehensive prerelease review of this candidate.” | Complete current-product coverage, candidate-specific findings and readiness; published report, with repairs and release kept within separately authorized scope. |
-| Prepare a release message | “Prepare release message,” “Draft release notes,” or “Update the release notes.” | Complete Markdown at root `RELEASE-NOTES.md`: curated Git changes plus applicable overview, compatibility, installation and limitation sections; retained and atomically refreshed, without publication. |
+| Prepare a release message | “Prepare release message,” “Draft release notes,” or “Update the release notes.” | Complete retained Markdown, with root `RELEASE-NOTES.md` as the default final path and optional staging within an active revision directory; curated changes and applicable overview, compatibility, installation and limitations, without publication. |
 | Collect release highlights | “Summarize key changes since the latest release; update the draft incrementally.” | Provider-independent Git range, curated ignored YAML checkpoint and highlights only; no hosting access or publication required. |
 | Prepare release packaging | “Verify this ZIP and prepare a workflow that builds it.” | Assessed package contents, stable asset names, build/checksum procedure and verified workflow preparation; interactive development when needed. |
 | Create a GitHub release | “Create release v1.2.3 from the verified commit using the configured packages.” | One publisher, complete assets, release state/readback and applicable stable download URLs; actual CI/download verification limits. |
@@ -107,11 +107,26 @@ PROJECT.md turns the seed and clarified decisions into shared project context, w
 
 ### Human review
 
-Greenfield preparation walks you through PROJECT, ARCHITECTURE, DECOMPOSITION, SPEC, PLAN, layout and TASKS. Each necessary newly created document gets substantive analysis and its own human acceptance checkpoint before dependent work. Clarification answers, agent QC and standing Git authorization do not accept documents.
+Greenfield preparation walks you through PROJECT, ARCHITECTURE, DECOMPOSITION, SPEC, PLAN, layout and TASKS. In the default interactive/onepass mode, each necessary newly created document gets substantive analysis and its own human acceptance checkpoint before dependent work. Clarification answers, agent QC and standing Git authorization do not accept documents.
 
 Existing or interrupted preparation assesses actual progress and continues using acceptable inputs. Requested interactive reviews come first; important startup issues can prompt concerns. Feature preparation reviews only necessary deltas and reuses sufficient main inputs. See [human document review](skills/sdd-manage/references/human-document-review.md).
 
 You may **preapprove future human checkpoints at any time**, individually or as a scoped set—for example, “Preapprove the remaining document checkpoints; stop before implementation.” The agent still reports each result and performs required QC, commits, pushes and tracking operations. Preapproval does not expand your implementation range.
+
+### Doc-design modes
+
+Choose document approval and pass control through normal instructions:
+
+| Selection | Approval and pass boundary |
+| --- | --- |
+| interactive/onepass (default) | Review each necessary document, then follow the selected preparation scope. |
+| autodoc/onepass | Approve PROJECT; later document checkpoints through TASKS are preapproved. Stop after TASKS completion, before package QC. |
+| autodoc with human-controlled multipass | Supply scope/revisions and approve PROJECT each pass; after TASKS, choose reset or advance. |
+| autodoc with autoloop | Supply an ordered sequence of scopes/revisions. Clarify their important interactions upfront and approve the first PROJECT; later PROJECT approvals are waived. Run the predefined passes, then stop before package QC. |
+
+Predefined autodoc scope sequences default to autoloop unless you request human-controlled multipass. The agent announces the later PROJECT approval waiver and explains new material decisions, using its judgment while continuing so you can steer. Per-document quality checks, publication and tracking remain required.
+
+You may reset the doc-design cursor at an intermediate checkpoint. The agent publishes a reset record and reopens DOCS-002–009 and their existing issues, preserving DOCS-001 and all documents. Each pass revises the preceding document set through TASKS; Git retains its versions. Autodoc stops keep package QC, documentation integration and implementation pending. See [mode and reset details](skills/sdd-manage/references/doc-design-modes.md).
 
 ### Main preparation tracking
 
@@ -119,7 +134,7 @@ The generated AGENTS.md enables GitHub tracking for documentation preparation an
 
 When enabled, tracking creates/verifies the native `sdd-docs-main` milestone and all nine preparation issues **before repository modifications**. The [bundled JSON](assets/DOCS_TRACKING_TEMPLATE.json) fixes the milestone title/plain-text description and complete issue briefs/dependencies. Initialization preserves existing root AGENTS/disclosure/usage/discovery files and copies missing ones. If only some existed, the agent reports both groups and pauses after publishing initialization; none/all present adds no approval stop. Existing preparation resumes without replacing files or replaying first approvals.
 
-`docs/dev/DOCS_TASKS.md` comes from the bundled template. Each document task completes at first approval: its approved state and checked task share one commit, followed by push/readback and issue closure. Later document revisions keep that task complete and issue closed. The last task/issue checks the whole package; then the docs branch merges, the verified merge is published, the milestone closes and the agent confirms the final checkpoint before implementation. See [main preparation](skills/sdd-manage/references/main-preparation.md).
+`docs/dev/DOCS_TASKS.md` comes from the bundled template. Each document task completes at first approval: its approved state and checked task share one commit, followed by push/readback and issue closure. Ordinary later edits keep that task complete and issue closed; an explicit cursor reset reopens DOCS-002–009 and the same issues for the next pass, retaining all documents and DOCS-001. The last task/issue checks the whole package; then the docs branch merges, the verified merge is published, the milestone closes and the agent confirms the final checkpoint before implementation. See [main preparation](skills/sdd-manage/references/main-preparation.md).
 
 ### Agent quality checks
 
@@ -141,7 +156,7 @@ These diagrams explain the human-visible paths. [PLUGIN.md](PLUGIN.md#composite-
 
 ### Project preparation
 
-Each authoring node below creates/checks and publishes one necessary proposal before human review (or follows explicit preapproval). First approval is then recorded with the completed DOCS task in its published acceptance commit, followed by issue closure when enabled. Design repeats this checkpoint for PROJECT, ARCHITECTURE and DECOMPOSITION. Dependent implementation starts only after accepted preparation is integrated, verified and published to the actual default branch.
+Each authoring node creates/checks and publishes a necessary document under selected human approval or mode preapproval. Record current-pass acceptance with its completed DOCS task, then close its issue when enabled. Design covers PROJECT, ARCHITECTURE and DECOMPOSITION in order; a reset starts at PROJECT using retained documents. The pass boundary below separates normal completion, autodoc stops and predefined resets. Dependent implementation still requires verified published preparation integration.
 
 ```mermaid
 flowchart TB
@@ -151,21 +166,27 @@ flowchart TB
     IQ -->|"yes"| STOP["Report retained/copied files; pause"]
     STOP -->|"human continues"| D["sdd-design: one design root; QC and publish"]
     IQ -->|"no"| D
-    D --> DQ{"Human accepts this design root?"}
+    D --> DQ{"This design root checkpoint satisfied?"}
     DQ -->|"revise or next design root"| D
     DQ -->|"all necessary design accepted"| S["sdd-specify: SPEC; QC and publish"]
-    S --> SQ{"Human accepts SPEC?"}
+    S --> SQ{"SPEC checkpoint satisfied?"}
     SQ -->|"revise"| S
     SQ -->|"accepted"| P["sdd-plan: PLAN; strategy QC and publish"]
-    P --> PQ{"Human accepts PLAN?"}
+    P --> PQ{"PLAN checkpoint satisfied?"}
     PQ -->|"revise"| P
     PQ -->|"accepted"| L["sdd-plan: layout; combined QC and publish"]
-    L --> LQ{"Human accepts layout?"}
+    L --> LQ{"Layout checkpoint satisfied?"}
     LQ -->|"revise"| L
     LQ -->|"accepted"| T["sdd-tasks: TASKS; QC and publish"]
-    T --> TQ{"Human accepts TASKS?"}
+    T --> TQ{"TASKS checkpoint satisfied?"}
     TQ -->|"revise"| T
-    TQ -->|"accepted"| Q["DOCS-009: package QC; publish and close final issue"]
+    TQ -->|"approved or preapproved"| PC{"Selected pass boundary?"}
+    PC -->|"interactive/onepass or authorized advance"| Q["DOCS-009: package QC; publish and close final issue"]
+    PC -->|"autodoc stop"| DS["TASKS complete; stop before package QC"]
+    PC -->|"predefined next autoloop scope"| RESET["Publish reset; reopen same DOCS-002–009 issues"]
+    DS -->|"human reset and scope"| RESET
+    DS -->|"human advances"| Q
+    RESET -->|"revise retained PROJECT first"| D
     Q --> G["Explicit docs merge; verify and publish default branch"]
     G --> MC["Close sdd-docs-main milestone when enabled"]
     MC --> A{"Final checkpoint cleared and implementation range authorized?"}
@@ -252,9 +273,9 @@ See [the owning workflow](skills/sdd-manage/references/review-and-revision.md).
 
 ### Highlights and release messages
 
-“Collect release highlights” produces curated Git changes only. “Prepare release message” assembles a complete message at root RELEASE-NOTES.md, adding applicable overview, compatibility, installation and limitation sections. Subsequent preparation refreshes coverage and preserves applicable human edits; the file remains until refreshed again. Explicit templates/paths and supplied-text-only editing retain their narrower scope.
+“Collect release highlights” produces curated Git changes only. “Prepare release message” assembles a complete message, adding applicable overview, compatibility, installation and limitation sections. Its default final path is root RELEASE-NOTES.md; release documents may be prepared and committed inside an active revision directory, then moved during the release commit. Subsequent preparation refreshes coverage and preserves applicable human edits; the file remains until refreshed again. Explicit templates/paths and supplied-text-only editing retain their narrower scope.
 
-A release request checks local source coverage and the stated version; a matching version alone does not prove freshness. The finalized complete Markdown body is shared by the release commit and GitHub message, and the release tag points to that verified commit. See [release-message preparation](skills/sdd-forge/references/release-message.md) and the narrower [Git highlights workflow](skills/sdd-forge/references/release-highlights.md).
+A release request checks local source coverage and the stated version; a matching version alone does not prove freshness. Release tags always target release commits on the repository’s actual default branch: either a direct commit or the merge from the designated primary development branch. The finalized Markdown body is shared by that commit and the GitHub message; a revision/development tip is not a release source by itself. See [release-message preparation](skills/sdd-forge/references/release-message.md) and the narrower [Git highlights workflow](skills/sdd-forge/references/release-highlights.md).
 
 ### Packaging and publication
 
