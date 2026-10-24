@@ -135,6 +135,8 @@ The generated AGENTS.md enables GitHub tracking for documentation preparation an
 
 When enabled, tracking creates/verifies the native `sdd-docs-main` milestone and all nine preparation issues **before repository modifications**. The [bundled JSON](assets/DOCS_TRACKING_TEMPLATE.json) fixes the milestone title/plain-text description and complete issue briefs/dependencies. Initialization preserves existing root AGENTS/disclosure/usage/discovery files and copies missing ones. If only some existed, the agent reports both groups and pauses after publishing initialization; none/all present adds no approval stop. Existing preparation resumes without replacing files or replaying first approvals.
 
+Initialization also recommends [optional manual conversation records](skills/sdd-manage/references/initialization/ai-logs.md). If adopted for fresh setup, the agent seeds `docs/ai-logs/` on `design-docs/ai-logs` and verifies its published default-branch merge before creating design-docs/main. Recording stays manual; deferred/declined adoption affects no SDD readiness or completion gate.
+
 `docs/dev/DOCS_TASKS.md` contains tasks/checkoffs only. The separate `docs/dev/DOCS_PREPARATION.md` holds control, decisions and evidence; both use bundled templates. Legacy mixed lists move non-task content to that record without losing decisions or task progress. Each document task completes at first approval: its accepted state, preparation-record evidence and checked task share one commit, followed by push/readback and issue closure. Ordinary later edits keep that task complete and issue closed; an explicit cursor reset reopens DOCS-002–009 and the same issues for the next pass, retaining all documents and DOCS-001. The last task/issue checks the whole package; then the docs branch merges, the verified merge is published, the milestone closes and the agent confirms the final checkpoint before implementation. See [main preparation](skills/sdd-manage/references/main-preparation.md).
 
 ### Agent quality checks
@@ -153,122 +155,137 @@ You can request “prepare a handoff” for an additional transfer check, but it
 
 ## Workflow guide
 
-These diagrams explain the human-visible paths. [PLUGIN.md](PLUGIN.md#composite-workflows) summarizes agent selection, handoffs and operational boundaries. Enter at the stage supported by current inputs; a blocker preserves work and stops the affected path.
+These diagrams explain the human-visible paths. [PLUGIN.md](PLUGIN.md#composite-workflows) maps skills and handoffs; the linked workflow references own the detailed rules. Enter where current inputs permit. Earlier requested stops and unresolved blockers remain controlling throughout.
 
 ### Project preparation
 
-Each authoring node creates/checks and publishes a necessary document under selected human approval or mode preapproval. Record current-pass acceptance in DOCS_PREPARATION in the same commit as the accepted document and completed DOCS task, then close its issue when enabled. Design covers PROJECT, ARCHITECTURE and DECOMPOSITION in order; a reset starts at PROJECT using retained documents. The pass boundary below separates normal completion, autodoc stops and predefined resets. Dependent implementation still requires verified published preparation integration.
+Main preparation separates repository initialization, document-design passes and final package completion. When GitHub tracking is enabled, verify `sdd-docs-main` and all nine issues before repository writes; declined tracking skips hosted operations. Initialization preserves existing root files. Mixed initial presence pauses after published initialization unless continuation is preapproved.
 
 ```mermaid
 flowchart TB
-    M["Scope and repository state"] --> H["Enabled sdd-docs-main projection before writes"]
-    H --> I["DOCS-001: initialize; publish and close issue"]
-    I --> IQ{"Partial initial files and no preapproval?"}
-    IQ -->|"yes"| STOP["Report retained/copied files; pause"]
-    STOP -->|"human continues"| D["sdd-design: one design root; QC and publish"]
-    IQ -->|"no"| D
-    D --> DQ{"This design root checkpoint satisfied?"}
-    DQ -->|"revise or next design root"| D
-    DQ -->|"all necessary design accepted"| S["sdd-specify: SPEC; QC and publish"]
-    S --> SQ{"SPEC checkpoint satisfied?"}
-    SQ -->|"revise"| S
-    SQ -->|"accepted"| P["sdd-plan: PLAN; strategy QC and publish"]
-    P --> PQ{"PLAN checkpoint satisfied?"}
-    PQ -->|"revise"| P
-    PQ -->|"accepted"| L["sdd-plan: layout; combined QC and publish"]
-    L --> LQ{"Layout checkpoint satisfied?"}
-    LQ -->|"revise"| L
-    LQ -->|"accepted"| T["sdd-tasks: TASKS; QC and publish"]
-    T --> TQ{"TASKS checkpoint satisfied?"}
-    TQ -->|"revise"| T
-    TQ -->|"approved or preapproved"| PC{"Selected pass boundary?"}
-    PC -->|"interactive/onepass or authorized advance"| Q["DOCS-009: package QC; publish and close final issue"]
-    PC -->|"autodoc stop"| DS["TASKS complete; stop before package QC"]
-    PC -->|"predefined next autoloop scope"| RESET["Publish reset; reopen same DOCS-002–009 issues"]
-    DS -->|"human reset and scope"| RESET
-    DS -->|"human advances"| Q
-    RESET -->|"revise retained PROJECT first"| D
-    Q --> G["Explicit docs merge; verify and publish default branch"]
-    G --> MC["Close sdd-docs-main milestone when enabled"]
-    MC --> A{"Final checkpoint cleared and implementation range authorized?"}
-    A -->|"no"| R["Report preparation result; stop"]
-    A -->|"yes"| B["Activate eligible phase and branch from published checkpoint"]
+    S["Scope and repository readiness"] --> H{"Tracking enabled?"}
+    H -->|"yes"| V["Verify sdd-docs-main projection before writes"]
+    H -->|"no"| I["DOCS-001: initialize and publish"]
+    V --> I
+    I --> C{"Initialization continuation cleared?"}
+    C -->|"no"| P["Report retained/copied files and pause"]
+    P -->|"human continues"| D["Document-design passes"]
+    C -->|"yes"| D
+    D --> A{"Package QC authorized?"}
+    A -->|"no"| E["Report pass result and stop"]
+    A -->|"yes"| Q["DOCS-009: verify and publish package QC"]
+    Q --> M["Merge docs; verify and publish default branch"]
+    M --> T["Close documentation milestone when tracked"]
+    T --> F["Final preparation checkpoint"]
 ```
 
-See [the owning workflow](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
+Each DOCS task is published/read back before its tracked issue closes. The final checkpoint reports the integrated package and pending effects; implementation starts only when that checkpoint is cleared and a range is authorized. See [main preparation](skills/sdd-manage/references/main-preparation.md) and the [preparation integration gate](skills/sdd-manage/references/branch-management.md#preparation-integration-gate).
+
+### One document-design pass
+
+Explore the current scope and resolve consequential choices before PROJECT acceptance. Each named node below is a document checkpoint: satisfy its required quality checks and human approval or applicable preapproval before following the next arrow. Acceptable existing inputs can be reused; a reset pass revises retained documents rather than recreating them.
+
+```mermaid
+flowchart TB
+    P["DOCS-002: PROJECT checkpoint"] --> A["DOCS-003: ARCHITECTURE checkpoint"]
+    A --> D["DOCS-004: DECOMPOSITION checkpoint"]
+    D --> S["DOCS-005: SPEC checkpoint"]
+    S --> L["DOCS-006: PLAN checkpoint"]
+    L --> R["DOCS-007: layout checkpoint"]
+    R --> T["DOCS-008: TASKS checkpoint"]
+    T --> B["Apply the selected mode/pass boundary"]
+```
+
+For each completion, the accepted document state, DOCS_PREPARATION decision/QC evidence and checked DOCS task share one commit, followed by publication/readback and tracked issue closure. DOCS_TASKS holds tasks/checkoffs only; DOCS_PREPARATION retains mode, pass scope and decisions. Document contents describe the project. See [human document review](skills/sdd-manage/references/human-document-review.md), [quality gates](skills/sdd-manage/references/document-qc-gates.md) and the [mode table above](#doc-design-modes).
+
+### Document-design modes and loops
+
+Interactive/onepass reviews each necessary document unless preapproved. Autodoc preapproves checkpoints after PROJECT through TASKS; human-controlled multipass retains PROJECT approval each pass. Autoloop clarifies the predefined scope sequence upfront, requires the first PROJECT approval and waives later PROJECT approvals. New material choices within that delegated scope are explained while work continues.
+
+```mermaid
+flowchart TB
+    T["DOCS-008 complete, published and reconciled"] --> M{"Selected mode?"}
+    M -->|"interactive/onepass"| A["Follow selected preparation scope"]
+    M -->|"autodoc/onepass"| S["Stop before DOCS-009"]
+    M -->|"human-controlled multipass"| H{"Human direction?"}
+    M -->|"autoloop"| N{"Predefined pass remains?"}
+    H -->|"reset with revised scope"| R["Publish cursor reset; reconcile task/issue reopening"]
+    H -->|"advance"| A
+    N -->|"yes"| R
+    N -->|"no"| S
+    R --> P["Revise retained PROJECT, then its dependents"]
+    P -->|"complete next pass"| T
+    S -->|"explicit advance"| A
+```
+
+A reset returns to DOCS-002, reopens DOCS-002–009 and the same issues when tracked, and preserves DOCS-001 and all documents. You may also request reset at an intermediate checkpoint. Reconcile pending publication/reopening before authoring resumes. Finishing an autodoc pass or the final autoloop pass leaves package QC, documentation integration and implementation pending; advancing selects package QC within its existing gates, not implementation. See [mode and reset control](skills/sdd-manage/references/doc-design-modes.md).
 
 ### Implementation and continuation
 
-Implementation inspects retained commits for publication eligibility, publishes verified eligible work, then resumes the selected range. A known-invalid completion enters bounded recovery before publication. Forward repairs within established authority do not require blanket reapproval; historical commit-composition exceptions remain human decisions. Each task closes with its result, evidence and checklist together. Requested tracking must be ready; a partial main-phase range publishes and pauses, while a complete eligible boundary integrates.
+For implementation driven by TASKS or FEATURE-TASKS, apply this cycle to each authorized phase segment or coherent feature/revision boundary. Inspect retained work before publication or continuation; a known-invalid completion requires scoped recovery. Each task closes with its verified result, evidence and checkbox together, using its single owning task ID.
 
 ```mermaid
 flowchart TB
-    O["Orient: worktree, instructions and pending ownership"] --> I["Preflight and publish eligible commits; readback"]
-    I --> Q{"Publication resolved?"}
-    Q -->|"no"| X["Preserve work; scoped recovery; stop affected path"]
-    Q -->|"yes"| A{"Task persistence audit valid?"}
-    A -->|"no"| X
-    A -->|"yes"| S["Resume or select eligible range"]
-    S --> H{"Requested tracking readiness?"}
-    H -->|"pending, partial or unknown"| X
-    H -->|"verified or explicitly declined"| T["Implement: tests, code and documentation"]
+    O["Recover scope, worktree and pending work"] --> A{"Publication and task audit clear?"}
+    A -->|"no"| X["Preserve work; resolve blocker before continuing"]
+    A -->|"yes"| S["Select or resume authorized work"]
+    S --> H{"Tracking ready or declined?"}
+    H -->|"no"| X
+    H -->|"yes"| T["Implement next task: tests, code and docs"]
     T --> V{"Required verification passes?"}
     V -->|"repair"| T
-    V -->|"yes"| C["One task closing commit: result, evidence and checkbox"]
-    C --> P["Leading single task ID; push and remote readback"]
-    P --> F["Reconcile active issue and milestone closures"]
-    F --> B{"Selected range complete?"}
-    B -->|"no; dependencies ready"| S
-    B -->|"yes"| G{"Complete main phase and integration audit valid?"}
+    V -->|"yes"| C["Commit one task: result, evidence and checkbox"]
+    C --> P["Push/read back; reconcile hosted closures"]
+    P --> B{"Selected segment complete?"}
+    B -->|"no; dependencies ready"| T
+    B -->|"yes"| G{"Integration boundary eligible?"}
     G -->|"no"| E["Report checkpoint and stop"]
-    G -->|"yes"| M["Explicit merge; merged checks; target push and readback"]
+    G -->|"yes"| M["Explicit merge; merged checks; target push/readback"]
     M --> E
 ```
 
-See [the owning workflow](skills/sdd-implement/SKILL.md).
+For main development, integration requires a complete verified phase; a smaller range publishes and pauses. A feature/revision requires its coherent authorized boundary and applicable exits, including a task audit when TASKS or FEATURE-TASKS governs the work; complete feature implementation includes required document incorporation before final verification. An authorized cross-phase range repeats the cycle only after each preceding phase is integrated and published. No diagram arrow widens the requested range. See [implementation](skills/sdd-implement/SKILL.md) and [completion boundaries](skills/sdd-implement/references/completion-and-checkpoints.md#integrate-the-completed-boundary).
 
 ### Checkpoint steering
 
-You command an amendment at a paused implementation checkpoint. It updates existing documents, implementation and tests, integrates into the paused branch, then returns control. Assessment-only requests stop at impact; successful steering does not resume the task list.
+You command an amendment at a paused implementation checkpoint. It changes the existing documents and implementation within that scope; assessment-only requests stop at impact. Successful steering returns control without resuming the task list.
 
 ```mermaid
 flowchart TB
-    H["Human commands checkpoint amendment"] --> M["sdd-manage + sdd-orient<br/>Establish scope and paused target"]
-    M --> S["sdd-steer<br/>Amend existing documents and implementation"]
-    S --> D["sdd-tdd + sdd-docs<br/>Align tests and documentation"]
-    D --> V["sdd-verify<br/>Amendment and regression checks"]
-    V -->|"repair needed"| S
-    V -->|"verified"| R["sdd-report<br/>Amendment result and evidence"]
-    R --> C["sdd-steer<br/>Commit and push amendment"]
-    C --> G["sdd-steer + sdd-verify<br/>Merge into paused branch<br/>Merged checks, target push and readback"]
-    G --> E["Return control to human<br/>Stop before task-list continuation"]
+    H["Human commands checkpoint amendment"] --> S["Establish scope and paused target"]
+    S --> W["Amend documents, code, tests and guides"]
+    W --> V{"Amendment and regression checks pass?"}
+    V -->|"repair"| W
+    V -->|"yes"| R["Commit evidence/result; publish and read back"]
+    R --> M["Merge into paused branch; verify and publish"]
+    M --> E["Return to human; stop before task continuation"]
 ```
 
-See [the owning workflow](skills/sdd-steer/SKILL.md).
+See [checkpoint steering](skills/sdd-steer/SKILL.md).
 
 ### Review and revision
 
-Review produces findings; source changes require revision authorization. An accepted amendment can enter revision planning directly. Formal campaigns retain plans/reports; nested revisions and eligible reopened amendments keep their established source and return context.
+Review produces findings; source changes require revision authority. A directly accepted amendment can enter at revision planning. Publish/read back each review unit and each completed revision action before starting the next, including independent work.
 
 ```mermaid
 flowchart TB
-    M["sdd-manage + sdd-orient<br/>Scope, source identity and criteria"] --> F["Focused skills<br/>Review selected concerns"]
-    F --> R["sdd-report<br/>Findings and review report"]
-    R --> C["Reviewer commits report<br/>sdd-manage coordinates checkpoint push"]
-    C --> A{"Revisions authorized?"}
-    A -->|"no: review-only"| E["Return result and stop"]
-    A -->|"yes"| P["sdd-manage<br/>Accepted revision plan"]
-    M -->|"already accepted amendment"| P
-    P --> W["Owning skills<br/>Scoped source and document changes"]
-    W --> V["sdd-verify<br/>Checks and findings recheck"]
-    V -->|"repair needed"| W
-    V -->|"verified"| RR["sdd-report<br/>Revision results and remaining findings"]
-    RR --> CP["Execution owner<br/>Commit and push completed actions"]
-    CP --> G["sdd-manage + sdd-verify<br/>Eligible explicit merge, merged checks<br/>Target push and readback"]
+    S["Establish scope, source and criteria"] --> R["Review one unit; record findings"]
+    R --> C["Commit report; publish and read back"]
+    C --> U{"More review units?"}
+    U -->|"yes"| R
+    U -->|"no"| A{"Revisions authorized?"}
+    A -->|"no"| E["Return result and stop"]
+    A -->|"yes"| P["Commit plan; publish and read back"]
+    S -->|"direct accepted amendment"| P
+    P --> W["Revise and verify one action; record result"]
+    W --> CP["Commit result; publish and read back"]
+    CP --> N{"More accepted actions?"}
+    N -->|"yes"| W
+    N -->|"no"| G["Verify eligible integration; merge and publish"]
     G --> E
 ```
 
-See [the owning workflow](skills/sdd-manage/references/review-and-revision.md).
+Failed verification returns to scoped repair; unresolved publication/readback stops progression. Nested and reopened campaigns retain their parent/return context. Final integration requires a complete eligible scope and respects explicit open/no-merge stops. See [review and revision](skills/sdd-manage/references/review-and-revision.md).
 
 ## Release operations
 
@@ -286,7 +303,7 @@ See [packaging](skills/sdd-forge/references/github-packaging.md), [release workf
 
 ## Plugin package
 
-The Agent Plugins 1.0 package includes package-root plugin.json, README.md, PLUGIN.md and LICENSE, plus skills/ and assets/. Assets include disclosure/usage notices, [AGENTS_TEMPLATE.md](assets/AGENTS_TEMPLATE.md), [DOCS_TASKS_TEMPLATE.md](assets/DOCS_TASKS_TEMPLATE.md), [DOCS_PREPARATION_TEMPLATE.md](assets/DOCS_PREPARATION_TEMPLATE.md), [DOCS_TRACKING_TEMPLATE.json](assets/DOCS_TRACKING_TEMPLATE.json), [SKILL_DISCOVERY_PROTOCOL.md](assets/SKILL_DISCOVERY_PROTOCOL.md) and the [Greenfield Project Prompt Template](<assets/Greenfield Project Prompt Template.md>). Root plugin.json is the sole manifest; OpenAI presentation metadata is under extensions.com.openai.interface. PLUGIN.md is SDD Manager's explicit composition entry, not a claim of standardized automatic discovery.
+The Agent Plugins 1.0 package includes package-root plugin.json, README.md, PLUGIN.md and LICENSE, plus skills/ and assets/. Assets include disclosure/usage notices, [AGENTS_TEMPLATE.md](assets/AGENTS_TEMPLATE.md), [DOCS_TASKS_TEMPLATE.md](assets/DOCS_TASKS_TEMPLATE.md), [DOCS_PREPARATION_TEMPLATE.md](assets/DOCS_PREPARATION_TEMPLATE.md), [DOCS_TRACKING_TEMPLATE.json](assets/DOCS_TRACKING_TEMPLATE.json), [SKILL_DISCOVERY_PROTOCOL.md](assets/SKILL_DISCOVERY_PROTOCOL.md), optional [AI-log directory guidance](assets/ai-logs/AGENTS_TEMPLATE.md) and [transcript template](assets/ai-logs/EXPLORE_DRIVE_TEMPLATE.md), and the [Greenfield Project Prompt Template](<assets/Greenfield Project Prompt Template.md>). Root plugin.json is the sole manifest; OpenAI presentation metadata is under extensions.com.openai.interface. PLUGIN.md is SDD Manager's explicit composition entry, not a claim of standardized automatic discovery.
 
 All 15 skills are distributed together. Their relative references stay within the plugin root; named handoffs and client loading/routing are separate concerns. See [bundled-skill guidance](https://github.com/pchemguy/SDD-Manager/blob/main/docs/dev/CAPABILITY-MAP.md#bundled-skill-references). Artwork includes assets/icon.svg, icon.png, logo.svg and logo.png; manifest icons use icon.svg and logo.svg, including dark variants.
 
