@@ -100,7 +100,7 @@ The main documents describe the complete intended project. Roots may link to foc
 | `layout.md` | Physical ownership of source, tests, documentation, and other artifacts. |
 | `TASKS.md` | Phase → Milestone → Task hierarchy, stable IDs, and progress evidence. |
 | `DOCS_TASKS.md` | Nine main-preparation task definitions and completion checkboxes only. |
-| `DOCS_PREPARATION.md` | Main-preparation mode/pass control, scope sequence, decisions, initialization/reset evidence and pending transitions. |
+| `DOCS_PREPARATION.md` | Main-preparation mode/pass control, titled scope sequence, retained per-pass/cross-scope decisions, initialization/reset evidence and pending transitions. |
 | `DOCS-QC-REPORT.md` | Whole documentation package readiness, checked sources, findings and evidence limits. |
 | `HANDOFF.md` | Workflow checkpoint, authorized scope/stop, branches/parent return and pending work; later records and Git supply subsequent changes. |
 
@@ -126,6 +126,8 @@ Choose document approval and pass control through normal instructions:
 | autodoc with autoloop | Supply an ordered sequence of scopes/revisions. Clarify their important interactions upfront and approve the first PROJECT; later PROJECT approvals are waived. Run the predefined passes, then stop before package QC. |
 
 Predefined autodoc scope sequences default to autoloop unless you request human-controlled multipass. The agent announces the later PROJECT approval waiver and explains new material decisions, using its judgment while continuing so you can steer. Per-document quality checks, publication and tracking remain required.
+
+Multipass delivery is **strict by default**: later passes preserve phases/tasks established by earlier passes and add subsequent bounded increments. You may explicitly permit **flexible multipass**, allowing small changes fitting an earlier pass's scope into its corresponding phase/task range. This choice does not change approval or loop control. See [delivery-mode details](skills/sdd-manage/references/doc-design-modes.md#multipass-delivery-modes).
 
 You may reset the doc-design cursor at an intermediate checkpoint. The agent publishes a reset record and reopens DOCS-002–009 and their existing issues, preserving DOCS-001 and all documents. Each pass revises the preceding document set through TASKS; Git retains its versions. Autodoc stops keep package QC, documentation integration and implementation pending. See [mode and reset details](skills/sdd-manage/references/doc-design-modes.md).
 
