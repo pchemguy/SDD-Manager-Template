@@ -25,14 +25,14 @@ Load at feature preparation entry/resume, mode selection, document completion, r
 | FDOCS-001 | Feature context, identity, governing sources, records and tracking/provenance readiness | sdd-manage |
 | FDOCS-002 | FEATURE first approval | sdd-design |
 | FDOCS-003 | Architectural assessment: accepted FEATURE_ARCHITECTURE if needed, otherwise evidenced reuse of main architecture | sdd-design |
-| FDOCS-004 | Component assessment: accepted FEATURE_DECOMPOSITION if needed, otherwise evidenced reuse | sdd-design |
-| FDOCS-005 | FEATURE-SPEC, required QC and applicable acceptance | sdd-specify |
+| FDOCS-004 | Component/API/model assessment and selected design artifacts; scoped proposals or evidenced reuse | sdd-design |
+| FDOCS-005 | FEATURE-SPEC and selected contract artifacts, required QC and applicable acceptance | sdd-specify |
 | FDOCS-006 | FEATURE-PLAN or sufficient accepted strategy, required QC and applicable acceptance | sdd-plan |
 | FDOCS-007 | Scoped layout proposal or sufficient existing allocation, combined PLAN/layout QC and applicable acceptance | sdd-plan |
 | FDOCS-008 | FEATURE-TASKS, required QC and applicable acceptance | sdd-tasks |
 | FDOCS-009 | Whole-feature-package QC and FEATURE-QC-REPORT | sdd-verify; sdd-manage coordinates |
 
-Each stage records applicable/new or reusable input, exact identity, assessment/decision basis and relevant report in FEATURE_PREPARATION. Reuse completes an assessment stage with evidence, not a fabricated new document or human approval. New necessary roots/children get their mapped checkpoint; unchanged accepted inputs do not require ceremony. Stage dependencies remain ordered even when no overlay is needed. No FEATURE-LAYOUT document or additional child issues are introduced.
+Each stage records applicable/new or reusable input, exact identity, assessment/decision basis and relevant report in FEATURE_PREPARATION. Reuse completes an assessment stage with evidence, not a fabricated new document or human approval. Selected model/API-design artifacts share FDOCS-004's proposal/acceptance; contract artifacts share FDOCS-005's, whether inline, children or peer documents. Record paths/owners and exact accepted/QC states in FEATURE_PREPARATION. These artifacts add no stage, issue or approval round; whole-package QC includes them. Unchanged accepted inputs do not require ceremony. Stage dependencies remain ordered even when no overlay is needed. No FEATURE-LAYOUT document or additional child issues are introduced.
 
 ## Decisions, completion and proactive guidance
 
@@ -40,7 +40,7 @@ Keep product content under the [content boundary](human-document-review.md#devel
 
 Before FEATURE approval, proactively compare requested scope with existing behavior, identify material interactions/compatibility constraints, recommend credible choices and resolve intent within actual decision authority. Do not duplicate already supported capabilities, reopen unrelated project decisions or defer consequential brief gaps merely because SPEC comes later. At each handoff, report the actual stage, changed/reused inputs, material rationale, pending human choice and next stop. Autodoc preapproval never replaces technical QC; eligible autoloop decisions receive concise visible rationale and proceed under the shared delegation rules.
 
-For each document stage, publish/read back a reviewable proposal before a required human checkpoint. After actual acceptance or applicable preapproval/reuse assessment, commit the accepted source/children, required QC, preparation evidence and initial checked FDOCS entry coherently; publish/read back before closing/readback of its existing issue or advancing. Use known proposal/blob/content identities rather than a containing commit's future SHA. Preparation tasks use this coordinator contract, not the product T-task execution/audit protocol. Ordinary later revisions retain first-completion status while invalidating/rechecking affected readiness; reset below explicitly reopens the pass.
+For each document stage, publish/read back a reviewable proposal before a required human checkpoint. After actual acceptance or applicable preapproval/reuse assessment, commit the accepted source and selected child/peer artifacts, required QC, preparation evidence and initial checked FDOCS entry coherently; publish/read back before closing/readback of its existing issue or advancing. Use known proposal/blob/content identities rather than a containing commit's future SHA. Preparation tasks use this coordinator contract, not the product T-task execution/audit protocol. Ordinary later revisions retain first-completion status while invalidating/rechecking affected readiness; reset below explicitly reopens the pass.
 
 ## Pass completion, reset and recovery
 
